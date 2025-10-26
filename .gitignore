@@ -1,0 +1,43 @@
+# === Environment ===
+.env
+*.env
+.env.*
+
+# === Node (frontend) ===
+web/node_modules/
+web/dist/
+web/.vite/
+web/.DS_Store
+web/*.log
+web/package-lock.json
+
+# === .NET (backend) ===
+api/bin/
+api/obj/
+api/*.user
+api/*.suo
+api/*.userosscache
+api/*.sln.docstates
+api/launchSettings.json
+
+# === Logs & temp ===
+*.log
+*.tmp
+*.bak
+
+# === OS files ===
+.DS_Store
+Thumbs.db
+
+# === IDEs ===
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# === Docker ===
+docker-compose.override.yml
+*.pid
+
+# === Misc ===
+/mongo_data/
