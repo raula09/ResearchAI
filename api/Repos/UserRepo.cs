@@ -1,5 +1,6 @@
 using MongoDB.Driver;
 using ResearchCopilot.Api.Models;
+using ResearchCopilot.Api.Database;
 
 namespace ResearchCopilot.Api.Repos;
 public class UserRepo

@@ -13,18 +13,19 @@ public class DocumentController : ControllerBase
     private readonly DocumentService _service;
     private readonly DocumentRepo _repo;
     public DocumentController(DocumentService service, DocumentRepo repo) { _service = service; _repo = repo; }
+[Authorize]
+[HttpPost("upload")]
+[Consumes("multipart/form-data")]
+public async Task<ActionResult<Document>> Upload([FromForm] UploadFormDto dto)
+{
+    var uid = JwtService.UserId(User);
+    if (dto.File == null || dto.File.Length == 0) return BadRequest("No file uploaded.");
 
-    [Authorize]
-    [HttpPost("upload")]
-    public async Task<ActionResult<Document>> Upload([FromForm] IFormFile file, [FromForm] string title)
-    {
-        var uid = JwtService.UserId(User);
-        if (file.Length == 0) return BadRequest();
-        using var s = file.OpenReadStream();
-        var text = PdfText.Extract(s);
-        var doc = await _service.IngestRaw(uid, title, text);
-        return doc;
-    }
+    using var s = dto.File.OpenReadStream();
+    var text = PdfText.Extract(s);
+    var doc = await _service.IngestRaw(uid, dto.Title, text);
+    return doc;
+}
 
     [Authorize]
     [HttpPost("text")]
