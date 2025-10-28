@@ -12,4 +12,7 @@ public class DocumentRepo
     public Task<List<Document>> ListDocs(string userId) => _ctx.Documents.Find(x => x.UserId == userId).SortByDescending(x => x.CreatedAt).ToListAsync();
     public Task InsertChunks(IEnumerable<Chunk> chunks) => _ctx.Chunks.InsertManyAsync(chunks);
     public Task<List<Chunk>> GetChunksByUser(string userId, int limit = 2000) => _ctx.Chunks.Find(x => x.UserId == userId).Limit(limit).ToListAsync();
+    public Task UpdateTags(string id, string userId, List<string> tags) => _ctx.Documents.UpdateOneAsync(x => x.Id == id && x.UserId == userId, Builders<Document>.Update.Set(d => d.Tags, tags));
+    public Task<long> CountByUser(string userId) => _ctx.Documents.CountDocumentsAsync(d => d.UserId == userId);
+    public Task<List<Document>> SearchByTag(string userId, string tag) => _ctx.Documents.Find(d => d.UserId == userId && d.Tags.Contains(tag)).ToListAsync();
 }
