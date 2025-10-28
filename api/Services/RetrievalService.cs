@@ -18,7 +18,7 @@ namespace ResearchCopilot.Api.Services
         {
             var pool = await _repo.GetChunksByUser(userId);
 
-            // No embeddings for now — just use the first few chunks as context
+           
             var topChunks = pool.Take(8).Select(c => c.Text).ToList();
             var context = string.Join("\n\n", topChunks);
 

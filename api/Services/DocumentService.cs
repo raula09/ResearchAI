@@ -25,7 +25,7 @@ namespace ResearchCopilot.Api.Services
 
             foreach (var c in _chunker.Chunk(text))
             {
-                // Temporary fix: no embeddings
+                
                 chunks.Add(new Chunk
                 {
                     DocumentId = doc.Id,
