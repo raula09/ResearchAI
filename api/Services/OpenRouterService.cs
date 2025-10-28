@@ -36,7 +36,7 @@ namespace ResearchCopilot.Api.Services
             _http.DefaultRequestHeaders.Clear();
             _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
 
-            // optional headers for OpenRouter ranking visibility
+            
             _http.DefaultRequestHeaders.Add("HTTP-Referer", "https://researchcopilot.local");
             _http.DefaultRequestHeaders.Add("X-Title", "ResearchCopilot");
 
