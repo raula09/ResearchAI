@@ -5,5 +5,6 @@ namespace ResearchCopilot.Api.Models
         public string Question { get; set; }
         public string Answer { get; set; }
         public List<string> Snippets { get; set; }
+         public string? DocumentId { get; set; }
     }
 }
