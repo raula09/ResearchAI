@@ -1,29 +1,33 @@
 using ResearchCopilot.Api.Models;
 using ResearchCopilot.Api.Repos;
 
-namespace ResearchCopilot.Api.Services;
-public class RetrievalService
+namespace ResearchCopilot.Api.Services
 {
-    private readonly DocumentRepo _repo;
-    private readonly GeminiService _gemini;
-    public RetrievalService(DocumentRepo repo, GeminiService gemini) { _repo = repo; _gemini = gemini; }
-
-    private static float CosSim(float[] a, float[] b)
+    public class RetrievalService
     {
-        double dot = 0; double na = 0; double nb = 0;
-        for (int i = 0; i < a.Length; i++) { dot += a[i] * b[i]; na += a[i] * a[i]; nb += b[i] * b[i]; }
-        if (na == 0 || nb == 0) return 0;
-        return (float)(dot / (Math.Sqrt(na) * Math.Sqrt(nb)));
-    }
+        private readonly DocumentRepo _repo;
+        private readonly OpenRouterService _ai;
 
-    public async Task<(string answer, List<string> snippets)> Ask(string userId, string message)
-    {
-        var q = await _gemini.EmbedAsync(message);
-        var pool = await _repo.GetChunksByUser(userId);
-        var ranked = pool.Select(c => new { c.Text, Score = CosSim(q, c.Embedding) }).OrderByDescending(x => x.Score).Take(8).ToList();
-        var context = string.Join("\n\n", ranked.Select(x => x.Text));
-        var sys = "Answer using the provided context only. Add concise references by quoting short phrases from the context.";
-        var ans = await _gemini.GenerateAsync(sys, "Question:\n" + message + "\nContext:\n" + context);
-        return (ans, ranked.Select(r => r.Text).ToList());
+        public RetrievalService(DocumentRepo repo, OpenRouterService ai)
+        {
+            _repo = repo;
+            _ai = ai;
+        }
+
+        public async Task<(string answer, List<string> snippets)> Ask(string userId, string message)
+        {
+            var pool = await _repo.GetChunksByUser(userId);
+
+            // No embeddings for now — just use the first few chunks as context
+            var topChunks = pool.Take(8).Select(c => c.Text).ToList();
+            var context = string.Join("\n\n", topChunks);
+
+            var sys = "Answer using only the provided context. If unsure, say 'Not enough information in the document.'";
+            var prompt = $"Question:\n{message}\n\nContext:\n{context}";
+
+            var ans = await _ai.GenerateAsync(sys, prompt);
+
+            return (ans, topChunks);
+        }
     }
 }

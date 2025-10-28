@@ -63,7 +63,7 @@ builder.Services.AddScoped<UserRepo>();
 builder.Services.AddScoped<DocumentRepo>();
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<PasswordService>();
-builder.Services.AddHttpClient<GeminiService>();
+builder.Services.AddHttpClient<OpenRouterService>();
 builder.Services.AddScoped<ChunkingService>();
 builder.Services.AddScoped<DocumentService>();
 builder.Services.AddScoped<RetrievalService>();
