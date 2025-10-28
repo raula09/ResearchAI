@@ -8,6 +8,7 @@ namespace ResearchCopilot.Api.Models
         [BsonId] public string Id { get; set; } = ObjectId.GenerateNewId().ToString();
         public string UserId { get; set; } = "";
         public string Role { get; set; } = "";
-              public string Content { get; set; } = "";
+        public string Content { get; set; } = "";
+               public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }
