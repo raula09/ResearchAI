@@ -9,4 +9,5 @@ public class Document
     public string Title { get; set; } = "";
     public string Summary { get; set; } = "";
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+     public List<string> Tags { get; set; } = new();
 }
