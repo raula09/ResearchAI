@@ -1,7 +1,10 @@
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 namespace ResearchCopilot.Api.Models;
+
 public class Document
 {
-    public string Id { get; set; } = Guid.NewGuid().ToString();
+    [BsonId] public string Id { get; set; } = ObjectId.GenerateNewId().ToString();
     public string UserId { get; set; } = "";
     public string Title { get; set; } = "";
     public string Summary { get; set; } = "";
