@@ -67,6 +67,8 @@ builder.Services.AddHttpClient<OpenRouterService>();
 builder.Services.AddScoped<ChunkingService>();
 builder.Services.AddScoped<DocumentService>();
 builder.Services.AddScoped<RetrievalService>();
+builder.Services.AddScoped<ChatRepo>();
+builder.Services.AddScoped<OpenRouterService>();
 
 var jwtKey = Environment.GetEnvironmentVariable("JWT_SECRET") ?? "this_is_a_development_jwt_secret_please_change_it_to_32chars_minimum";
 
