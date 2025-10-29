@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ResearchCopilot.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ce7e457fe4adddab228f488f73c5e0f4c6750595")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a328d8e7c36262365a04de19c9e23dda96b7ac9d")]
 [assembly: System.Reflection.AssemblyProductAttribute("ResearchCopilot.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ResearchCopilot.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
